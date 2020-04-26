@@ -29,6 +29,8 @@ from schemas import utilisateur_schema
 from schemas import inspection_schema
 from contrevenant import Contrevenant
 
+app = Flask(__name__, static_url_path="", static_folder="static")
+
 schema = JsonSchema(app)
 init_db()
 
