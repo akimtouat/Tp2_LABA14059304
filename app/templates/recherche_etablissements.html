@@ -1,0 +1,26 @@
+{% extends "header.html" %}
+{% block content %}
+<html>
+  <head>
+  </head>
+<body>
+<h1>Chercher des infractions selon l'etablissement</h1>
+<label for="etablissement">Noms d'etablissements</label>
+<form>
+<select name="etablissement" id="etablissement">
+{% for nom_etablissement in noms_etablissements %}
+<option value="{{ nom_etablissement.etablissement }}">{{ nom_etablissement.etablissement }}</option>
+{% endfor %}
+</select>
+</form>
+<button id="recherche_infractions">chercher</button>
+<table id="table_infractions">
+</table>
+
+
+
+<script src="/static/jquery-3.1.1.min.js"></script>
+<script src="/static/ajaxqry.js?r={{reload}}"></script>
+</body>
+</html>
+{% endblock %}

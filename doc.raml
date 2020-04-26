@@ -1,0 +1,119 @@
+#%RAML 1.0
+title:
+mediaType: application/json
+types:
+  Contrevenants:
+    properties:
+      id:
+        type: string
+        required: true
+      proprietaire:
+        type: string
+        required: true
+      categorie:
+        type: number
+        required: true
+      etablissement:
+        type: string
+        required: true
+      adresse:
+        type: string
+        required: true
+      ville:
+        type: number
+        required: true
+      description:
+        type: number
+        required: true
+      date_infraction:
+        type: string
+        required: true
+      date_jugement:
+        type: string
+        required: true
+      montant:
+        type: number
+        required: true
+  Utilisateur:
+    properties:
+      prenom:
+        type: string
+        required: true
+      nom_de_famille:
+        type: string
+        required: true
+      adresse_mail:
+        type: string
+        required: true
+      etablissements:
+        type: string[]
+        required: true
+  Inspection:
+    properties:
+      prenom:
+        type: string
+        required: true
+      nom_de_famille:
+        type: string
+        required: true
+      nom_etablissement:
+        type: string
+        required: true
+      adresse:
+        type: string
+        required: true
+      ville:
+        type: string
+        required: true
+      date_visite:
+        type: string
+        required: true
+      description:
+        type: string
+        required: true
+
+/api:
+  /inspection:
+    post:
+      description: Creer une demande d'inspection
+      body:
+        application/json:
+          type: Inspection
+          exemple:
+            prenom: Akim
+            nom_de_famille: Touat
+            nom_etablissement: poutineville
+            adresse: 1348 Beaubien Est.
+            ville: Montréal
+            date_visite: 2020-05-14
+            description: Douleur à l'estomac après avoir mangé
+      responses:
+        201:
+          description: La demande d'inspection à été créé
+  /contrevenants:
+    get:
+      description: Extraire les contrevenants entre deux dates.
+      queryParameters:
+        debut?: string
+        fin?: string
+      responses:
+        200:
+          body:
+            application/json:
+              type: Contrevenants[]
+        404:
+          description: les données entré sont erroné
+  /utilisateur:
+    post:
+      description: Creer un nouvel utilisateur
+      body:
+        application/json:
+          type: Utilisateur
+          exemple:
+            prenom: Akim
+            nom_de_famille: Touat
+            adresse_mail: akim.l.touat@gmail.com
+            etablissements:[poutineville, kampai garden]
+      responses:
+        201:
+          description: L'utilisateur à été créé

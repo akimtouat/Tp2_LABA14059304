@@ -1,0 +1,32 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <html>
+    <h1>Demande d'inspection</h1>
+    <body >
+    <div>
+    <label for="prenom">Prenom:</label><br>
+    <input type="text" id="prenom" name="prenom" ><br>
+    <label for="nom_de_famille">Nom de famille:</label><br>
+    <input type="text" id="nom_de_famille" name="nom_de_famille"><br><br>
+    <label for="nom_etablissement">Nom de l'etablissement:</label><br>
+    <input type="text" id="nom_etablissement" name="nom_etablissement" ><br>
+    <label for="adresse">Adresse:</label><br>
+    <input type="text" id="adresse" name="adresse" ><br>
+    <label for="ville">Ville:</label><br>
+    <input type="text" id="ville" name="ville" ><br>
+    <label for="date_visite">Date de la visite:</label><br>
+    <input type="date" id="date_visite">
+    <label for="description">Description:</label><br>
+    <textarea id="description" rows="4" cols="50">
+
+    </textarea><br>
+    <button id="inspection">Envoyer</button>
+    <table id="myTable">
+    </table>
+    <script src="/static/jquery-3.1.1.min.js"></script>
+    <script src="/static/inspection.js?r={{reload}}"></script>
+    </div>
+    </body>
+    </html>
+{% endblock %}
