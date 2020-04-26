@@ -1,5 +1,6 @@
 from flask_table import Table, Col, LinkCol
 
+
 class Resultats(Table):
     id = Col('id')
     proprietaire = Col('proprietaire')

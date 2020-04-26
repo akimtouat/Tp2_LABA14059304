@@ -30,19 +30,20 @@ from schemas import inspection_schema
 from contrevenant import Contrevenant
 
 
-
 schema = JsonSchema(app)
 init_db()
 
+
 def toDate(dateString):
     return datetime.datetime.strptime(dateString, "%Y-%m-%d").date()
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
 def recherche_contrevenants():
 
     sched = BackgroundScheduler(daemon=True)
-    sched.add_job(xml_download,'cron',hour=0, minute=0)
+    sched.add_job(xml_download, 'cron', hour=0, minute=0)
     sched.start()
 
     recherche = FormRechercheContrevenants(request.form)
@@ -86,16 +87,17 @@ def resultats_recherche(recherche):
         tableau.border = True
         return render_template('resultats.html', table=tableau)
 
-@app.route('/api/contrevenants', methods= ["GET"])
+
+@app.route('/api/contrevenants', methods=["GET"])
 def recherche_dates():
     resultats = []
     debut = request.args.get('debut')
     fin = request.args.get('fin')
     try:  # Will raise an error if date can't be parsed.
         date_debut = datetime.datetime.strptime(debut,
-            "%Y-%m-%d").date()
+                                                "%Y-%m-%d").date()
         date_fin = datetime.datetime.strptime(fin,
-            "%Y-%m-%d").date()
+                                              "%Y-%m-%d").date()
         conn = sqlite3.connect('db/contrevenants.db', check_same_thread=False)
         c = conn.cursor()
         c.execute("select * from contrevenant where date_infraction between ? "
@@ -109,11 +111,11 @@ def recherche_dates():
                      for contrevenant in qry]
         return jsonify([resultat.asDictionary() for resultat in
                        resultats]), 200
-
     except:
         return debut, 400
 
-@app.route('/api/contrevenants/infractions', methods= ["GET"])
+
+@app.route('/api/contrevenants/infractions', methods=["GET"])
 def recherche_infractions():
     resultats = []
     nom_etablissement = request.args.get('nom_etablissement')
@@ -121,7 +123,7 @@ def recherche_infractions():
         conn = sqlite3.connect('db/contrevenants.db', check_same_thread=False)
         c = conn.cursor()
         c.execute("select * from contrevenant where etablissement = ?",
-        (nom_etablissement,))
+                  (nom_etablissement,))
         qry = c.fetchall()
         resultats = [Contrevenant(contrevenant[0], contrevenant[1],
                      contrevenant[2], contrevenant[3], contrevenant[4],
@@ -134,7 +136,8 @@ def recherche_infractions():
     except:
         return "", 400
 
-@app.route('/api/utilisateur', methods= ["POST"])
+
+@app.route('/api/utilisateur', methods=["POST"])
 @schema.validate(utilisateur_schema)
 def creation_utilisateur():
     data = request.get_json()
@@ -149,21 +152,22 @@ def creation_utilisateur():
             mot_de_passe, adresse_mail, etablissement)
             VALUES(?,?,?,?,?)"""
         c.execute(sql_statement,
-            (data["prenom"],data["nom_de_famille"],hash_mot_de_passe,
-                data["adresse_mail"], array_to_string))
+                  (data["prenom"], data["nom_de_famille"], hash_mot_de_passe,
+                   data["adresse_mail"], array_to_string))
         conn.commit()
         return "", 201
 
     except:
         return "", 400
 
-@app.route('/api/inspection', methods= ["POST"])
+
+@app.route('/api/inspection', methods=["POST"])
 @schema.validate(inspection_schema)
 def demande_inspection():
     data = request.get_json()
     try:
         date_visite = datetime.datetime.strptime(data["date_visite"],
-            "%Y-%m-%d").date()
+                                                 "%Y-%m-%d").date()
 
         conn = sqlite3.connect('db/contrevenants.db', check_same_thread=False)
         c = conn.cursor()
@@ -171,34 +175,38 @@ def demande_inspection():
             nom_etablissement, adresse, ville, date_visite, description)
             VALUES(?,?,?,?,?,?,?)"""
         c.execute(sql_statement,
-            (data["prenom"],data["nom_de_famille"],data["nom_etablissement"],
-                data["adresse"],data["ville"],
-                date_visite, data["description"]))
+                  (data["prenom"], data["nom_de_famille"],
+                   data["nom_etablissement"],
+                   data["adresse"], data["ville"],
+                   date_visite, data["description"]))
         conn.commit()
         return "", 201
 
     except:
         return "", 400
 
+
 @app.route('/doc')
 def doc_template():
     return render_template('doc.html')
 
+
 @app.route('/recherche_dates')
 def recherche_dates_template():
-    return render_template('recherche_dates.html', reload = time.time())
+    return render_template('recherche_dates.html', reload=time.time())
+
 
 @app.route('/recherche_etablissements')
 def recherche_etablissements_template():
     qry = db_session.query(Contrevenants)
     resultats = qry.all()
     return render_template('recherche_etablissements.html',
-        noms_etablissements=resultats, reload = time.time())
+                           noms_etablissements=resultats, reload=time.time())
+
 
 @app.route('/demande_inspection')
 def inspections_template():
-    return render_template('inspection.html', reload = time.time())
-
+    return render_template('inspection.html', reload=time.time())
 
 
 if __name__ == "__main__":

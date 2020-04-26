@@ -1,5 +1,6 @@
 from app import db
 
+
 class Contrevenants(db.Model):
     """"""
     __tablename__ = "contrevenant"

@@ -5,5 +5,5 @@ WTF_CSRF_ENABLED = True
 
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir,
-    'db/contrevenants.db')
+                                                      'db/contrevenants.db')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db')

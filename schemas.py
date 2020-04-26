@@ -1,12 +1,12 @@
 utilisateur_schema = {
     'type': 'object',
-    'required': ['prenom','nom_de_famille', 'mot_de_passe', 'adresse_mail',
+    'required': ['prenom', 'nom_de_famille', 'mot_de_passe', 'adresse_mail',
                  'etablissements'],
     'properties': {
         'prenom': {
             'type': 'string'
         },
-        'nom_de_famille':{
+        'nom_de_famille': {
             'type': 'string'
         },
         'mot_de_passe': {
@@ -15,7 +15,7 @@ utilisateur_schema = {
         'adresse_mail': {
             'type': 'string'
         },
-        'etablissements':{
+        'etablissements': {
             'type': 'array',
             "contains": {
               "type": "string"
@@ -28,7 +28,8 @@ utilisateur_schema = {
 contrevenant_schema = {
     'type': 'object',
     'required': ['proprietaire', 'categorie', 'etablissement', 'adresse',
-    'ville', 'description', 'date_infraction', 'date_jugement', 'montant'],
+                 'ville', 'description', 'date_infraction', 'date_jugement',
+                 'montant'],
     'properties': {
         'proprietaire': {
             'type': 'string'
@@ -39,22 +40,22 @@ contrevenant_schema = {
         'etablissement': {
             'type': 'string'
         },
-        'adresse':{
+        'adresse': {
             'type': 'string'
         },
-        'ville':{
+        'ville': {
             'type': 'string'
         },
-        'description':{
+        'description': {
             'type': 'string'
         },
-        'date_infraction':{
+        'date_infraction': {
             'type': 'string'
         },
-        'date_jugement':{
+        'date_jugement': {
             'type': 'string'
         },
-        'montant':{
+        'montant': {
             'type': 'string'
         },
         'additionalProperties': False
@@ -63,13 +64,13 @@ contrevenant_schema = {
 
 inspection_schema = {
     'type': 'object',
-    'required': ['prenom','nom_de_famille', 'nom_etablissement','adresse',
-     'ville', 'date_visite', 'description'],
+    'required': ['prenom', 'nom_de_famille', 'nom_etablissement', 'adresse',
+                 'ville', 'date_visite', 'description'],
     'properties': {
         'prenom': {
             'type': 'string'
         },
-        'nom_de_famille':{
+        'nom_de_famille': {
             'type': 'string'
         },
         'nom_etablissement': {
@@ -81,10 +82,10 @@ inspection_schema = {
         'ville': {
             'type': 'string'
         },
-        'date_visite':{
+        'date_visite': {
             'type': 'string'
         },
-        'description':{
+        'description': {
             'type': 'string'
         },
         'additionalProperties': False

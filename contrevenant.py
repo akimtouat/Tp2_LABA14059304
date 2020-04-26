@@ -1,7 +1,7 @@
 class Contrevenant:
     def __init__(self, id, proprietaire, categorie,
-        etablissement, adresse, ville,
-        description, date_infraction, date_jugement, montant):
+                 etablissement, adresse, ville,
+                 description, date_infraction, date_jugement, montant):
         self.id = id
         self.proprietaire = proprietaire
         self.categorie = categorie
